@@ -50,6 +50,9 @@
     margin: 0 auto;
     padding: 0 32px;
   }
+  @media (max-width:480px){
+    .wrap{ padding: 0 20px; }
+  }
 
   /* ---------- background field ---------- */
   .field{
@@ -97,7 +100,48 @@
   .navlinks{ display:flex; gap:28px; font-size:14px; }
   .navlinks a{ text-decoration:none; color:var(--slate); transition:color .2s ease; }
   .navlinks a:hover{ color:var(--white); }
-  @media (max-width:640px){ .navlinks{ display:none; } }
+
+  .navtoggle{
+    display:none;
+    align-items:center; justify-content:center;
+    width:44px; height:44px;
+    background:transparent;
+    border:1px solid var(--line);
+    border-radius:8px;
+    color:var(--paper);
+    cursor:pointer;
+    padding:0;
+    flex-shrink:0;
+  }
+  .navtoggle svg{ width:20px; height:20px; display:block; }
+  .navtoggle .icon-close{ display:none; }
+  .navtoggle[aria-expanded="true"] .icon-open{ display:none; }
+  .navtoggle[aria-expanded="true"] .icon-close{ display:block; }
+
+  @media (max-width:640px){
+    .navtoggle{ display:inline-flex; }
+    .navlinks{
+      flex-direction:column;
+      gap:0;
+      position:absolute;
+      top:100%; left:0; right:0;
+      background:rgba(5,11,20,0.97);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--line);
+      padding:0 20px;
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .25s ease;
+    }
+    .navlinks.open{ max-height:320px; padding:8px 20px 16px; }
+    .navlinks a{
+      min-height:44px;
+      display:flex; align-items:center;
+      padding:0 4px;
+      border-bottom:1px solid var(--line);
+    }
+    .navlinks a:last-child{ border-bottom:none; }
+  }
 
   @keyframes pulse{
     0%,100%{ opacity:1; transform:scale(1); }
@@ -105,11 +149,13 @@
   }
 
   /* ---------- hero ---------- */
-  .hero{
-    padding: 96px 0 72px;
-    display:grid;
-    gap:36px;
+  .hero{ 
+    padding-top:96px; 
+    padding-bottom:72px; 
+    display:grid; 
+    gap:36px; 
   }
+
   .badge{
     display:inline-flex; align-items:center; gap:10px;
     font-family:var(--font-mono);
@@ -121,7 +167,17 @@
     width:max-content;
     background:rgba(115,214,224,0.06);
   }
-  .badge svg{ width:14px; height:14px; }
+  .badge svg{ width:14px; height:14px; flex-shrink:0; }
+
+  @media (max-width:480px){
+    .badge{
+      width:100%;
+      white-space:normal;
+      font-size:11.5px;
+      line-height:1.4;
+      padding:8px 14px 8px 10px;
+    }
+  }
 
   .terminal{
     font-family:var(--font-mono);
@@ -167,8 +223,22 @@
   }
   .hero-meta b{ color:var(--cyan); font-weight:500; }
 
+  @media (max-width:480px){
+    .hero-meta{ gap:10px; }
+    .hero-meta span{ font-size:12px; padding:6px 10px; }
+  }
+
   /* ---------- section shell ---------- */
   section{ padding: 88px 0; border-top:1px solid var(--line); }
+
+  @media (max-width:640px){
+  .hero{ padding-top:56px; padding-bottom:44px; gap:24px; }
+  section{ padding: 56px 0; }
+}
+@media (max-width:480px){
+  .hero{ padding-top:44px; padding-bottom:36px; gap:20px; }
+  section{ padding: 44px 0; }
+}
   .eyebrow{
     font-family:var(--font-mono); font-size:12.5px; letter-spacing:0.12em;
     text-transform:uppercase; color:var(--blue-soft); margin-bottom:14px;
@@ -240,6 +310,13 @@
   .card h3{ font-family:var(--font-display); font-size:21px; font-weight:600; margin-bottom:8px; }
   .card p{ color:var(--slate); font-size:15px; max-width:62ch; }
 
+  @media (max-width:480px){
+    .card{ padding:20px 18px 18px; border-radius:14px; }
+    .card .ver{ font-size:11.5px; padding:3px 9px; margin-bottom:12px; }
+    .card h3{ font-size:18px; }
+    .card p{ font-size:14px; }
+  }
+
   /* ---------- stats ---------- */
   .stats{
     display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
@@ -268,6 +345,17 @@
     .gitlog .tag{ order:3; }
   }
 
+  @media (max-width:480px){
+    .gitlog{ margin-top:28px; font-size:13.5px; }
+    .gitlog .row{ padding:20px 18px; }
+
+    .stats{ margin-top:28px; }
+    .stat{ padding:22px 18px; }
+    .stat .num{ font-size:clamp(24px,7vw,30px); }
+    .stat .lbl{ font-size:13px; }
+    .stat .src{ font-size:11px; }
+  }
+
   /* ---------- program ---------- */
   .program{
     margin-top:40px;
@@ -289,6 +377,13 @@
   .prog-card ul{ margin-top:14px; padding-left:18px; color:var(--slate); font-size:14px; }
   .prog-card li{ margin-bottom:6px; }
 
+  @media (max-width:480px){
+    .prog-card{ padding:20px; border-radius:14px; }
+    .prog-card h3{ font-size:17px; }
+    .prog-card p{ font-size:14px; }
+    .prog-card ul{ font-size:13.5px; }
+  }
+
   /* ---------- CTA ---------- */
   .cta{
     border-top:1px solid var(--line);
@@ -308,12 +403,25 @@
   .btn.ghost{ border:1px solid var(--line); color:var(--paper); }
   .btn:hover{ transform:translateY(-2px); }
 
+  @media (max-width:640px){
+    .cta{ padding: 56px 0 48px; }
+  }
+  @media (max-width:480px){
+    .cta{ padding: 44px 0 40px; }
+    .btnrow{ flex-direction:column; align-items:stretch; }
+    .btn{ justify-content:center; }
+  }
+
   footer{
     border-top:1px solid var(--line);
     padding:32px 0 48px;
     display:flex; justify-content:space-between; align-items:center;
     flex-wrap:wrap; gap:12px;
     font-family:var(--font-mono); font-size:12.5px; color:var(--slate-dim);
+  }
+  footer span{ line-height:1.6; }
+  @media (max-width:480px){
+    footer{ padding:28px 0 40px; font-size:11.5px; }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -330,12 +438,16 @@
   <nav>
     <div class="wrap">
       <div class="brand"><span class="dot"></span> alejandro_londono@adso:~/ universidad chongqing</div>
-      <div class="navlinks">
+      <div class="navlinks" id="navlinks">
         <a href="#problema">Problema</a>
         <a href="#pitch">Pitch</a>
         <a href="#evidencia">Evidencia</a>
         <a href="#programa">Programa</a>
       </div>
+      <button type="button" class="navtoggle" aria-expanded="false" aria-controls="navlinks" aria-label="Abrir menú de navegación">
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
     </div>
   </nav>
 
@@ -519,6 +631,34 @@
       }
     }
     tick();
+  })();
+
+  // Mobile nav toggle
+  (function(){
+    var btn = document.querySelector('.navtoggle');
+    var nav = document.getElementById('navlinks');
+    if(!btn || !nav) return;
+    function closeMenu(){
+      btn.setAttribute('aria-expanded', 'false');
+      nav.classList.remove('open');
+    }
+    function openMenu(){
+      btn.setAttribute('aria-expanded', 'true');
+      nav.classList.add('open');
+    }
+    btn.addEventListener('click', function(){
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      if(expanded){ closeMenu(); } else { openMenu(); }
+    });
+    nav.addEventListener('click', function(e){
+      if(e.target.tagName === 'A'){ closeMenu(); }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true'){
+        closeMenu();
+        btn.focus();
+      }
+    });
   })();
 
   // Scroll reveal
