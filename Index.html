@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Dev to Founder — Luis Londoño × SENA × Chongqing</title>
+<meta name="description" content="Plan de transferencia de conocimiento: de programador a fundador. Una mentalidad emprendedora desde la experiencia en Chongqing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#050B14;
+    --ink-2:#0A1626;
+    --blue:#0062DD;
+    --blue-soft:#3C82E8;
+    --cyan:#73D6E0;
+    --paper:#F4F8FC;
+    --slate:#8A9BB5;
+    --slate-dim:#4C5A72;
+    --white:#FFFFFF;
+    --line: rgba(115,214,224,0.16);
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--font-body);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  ::selection{ background:var(--cyan); color:var(--ink); }
+
+  a{ color:inherit; }
+
+  :focus-visible{
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+  }
+
+  .wrap{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- background field ---------- */
+  .field{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    background:
+      radial-gradient(ellipse 900px 600px at 12% -10%, rgba(0,98,221,0.35), transparent 60%),
+      radial-gradient(ellipse 700px 700px at 110% 20%, rgba(115,214,224,0.18), transparent 55%),
+      linear-gradient(180deg, var(--ink) 0%, #071120 55%, var(--ink) 100%);
+    pointer-events:none;
+  }
+  .field::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black, transparent 75%);
+    opacity:0.5;
+  }
+
+  main{ position:relative; z-index:1; }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter: blur(10px);
+    background:rgba(5,11,20,0.65);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:16px; padding-bottom:16px;
+  }
+  .brand{
+    font-family:var(--font-mono);
+    font-size:14px;
+    letter-spacing:0.02em;
+    color:var(--cyan);
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand .dot{ width:8px; height:8px; border-radius:50%; background:var(--cyan); box-shadow:0 0 12px var(--cyan); animation: pulse 2.2s ease-in-out infinite; }
+  .navlinks{ display:flex; gap:28px; font-size:14px; }
+  .navlinks a{ text-decoration:none; color:var(--slate); transition:color .2s ease; }
+  .navlinks a:hover{ color:var(--white); }
+  @media (max-width:640px){ .navlinks{ display:none; } }
+
+  @keyframes pulse{
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:.4; transform:scale(0.7); }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding: 96px 0 72px;
+    display:grid;
+    gap:36px;
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    color:var(--cyan);
+    border:1px solid var(--line);
+    padding:7px 14px 7px 10px;
+    border-radius:999px;
+    width:max-content;
+    background:rgba(115,214,224,0.06);
+  }
+  .badge svg{ width:14px; height:14px; }
+
+  .terminal{
+    font-family:var(--font-mono);
+    font-size:clamp(15px, 2.6vw, 20px);
+    color:var(--slate);
+    min-height: 1.6em;
+  }
+  .terminal .prompt{ color:var(--cyan); }
+  .terminal .cursor{
+    display:inline-block; width:9px; height:1.1em; background:var(--cyan);
+    margin-left:2px; vertical-align:-2px;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  h1{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(38px, 6.6vw, 76px);
+    line-height:1.02;
+    letter-spacing:-0.02em;
+    max-width: 16ch;
+  }
+  h1 .grad{
+    background:linear-gradient(100deg, var(--cyan), var(--blue-soft) 65%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  .hero-sub{
+    font-size:clamp(16px, 2vw, 19px);
+    color:var(--slate);
+    max-width:56ch;
+  }
+  .hero-sub strong{ color:var(--white); font-weight:600; }
+
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:14px;
+    font-family:var(--font-mono); font-size:13px; color:var(--slate-dim);
+  }
+  .hero-meta span{
+    border:1px solid var(--line); border-radius:8px; padding:6px 12px;
+    background:rgba(255,255,255,0.02);
+  }
+  .hero-meta b{ color:var(--cyan); font-weight:500; }
+
+  /* ---------- section shell ---------- */
+  section{ padding: 88px 0; border-top:1px solid var(--line); }
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--blue-soft); margin-bottom:14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:""; width:22px; height:1px; background:var(--blue-soft); }
+  h2{
+    font-family:var(--font-display); font-weight:600;
+    font-size:clamp(28px, 4vw, 42px);
+    letter-spacing:-0.01em;
+    max-width:20ch;
+    margin-bottom:18px;
+  }
+  .lede{ color:var(--slate); max-width:62ch; font-size:16.5px; }
+
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ---------- git log (problem) ---------- */
+  .gitlog{
+    margin-top:40px;
+    font-family:var(--font-mono);
+    font-size:14.5px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+    background:rgba(255,255,255,0.015);
+  }
+  .gitlog .row{
+    display:grid;
+    grid-template-columns: 96px 1fr auto;
+    gap:16px;
+    align-items:center;
+    padding:16px 20px;
+    border-bottom:1px solid var(--line);
+  }
+  .gitlog .row:last-child{ border-bottom:none; }
+  .gitlog .hash{ color:var(--cyan); }
+  .gitlog .msg{ color:var(--paper); }
+  .gitlog .msg small{ display:block; color:var(--slate-dim); font-family:var(--font-body); font-size:13px; margin-top:3px; }
+  .gitlog .tag{ font-size:11.5px; color:var(--slate); white-space:nowrap; }
+
+  /* ---------- deploy log (pitch) ---------- */
+  .deploy{
+    margin-top:44px;
+    display:grid;
+    gap:18px;
+  }
+  .card{
+    position:relative;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:28px 28px 26px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+    transition: transform .35s ease, border-color .35s ease, background .35s ease;
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(115,214,224,0.5);
+    background:linear-gradient(180deg, rgba(115,214,224,0.07), rgba(0,98,221,0.03));
+  }
+  .card .ver{
+    font-family:var(--font-mono); font-size:12.5px; color:var(--ink);
+    background:var(--cyan);
+    display:inline-block; padding:4px 10px; border-radius:6px;
+    font-weight:600; margin-bottom:16px;
+  }
+  .card.final .ver{ background:var(--blue); color:var(--white); }
+  .card h3{ font-family:var(--font-display); font-size:21px; font-weight:600; margin-bottom:8px; }
+  .card p{ color:var(--slate); font-size:15px; max-width:62ch; }
+
+  /* ---------- stats ---------- */
+  .stats{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    margin-top:44px;
+    border:1px solid var(--line); border-radius:16px; overflow:hidden;
+    background:var(--line);
+  }
+  .stat{ background:var(--ink-2); padding:30px 24px; }
+  .stat .num{
+    font-family:var(--font-display); font-weight:700;
+    font-size:clamp(28px,3.4vw,38px);
+    background:linear-gradient(100deg, var(--cyan), var(--blue-soft));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    line-height:1;
+  }
+  .stat .lbl{ margin-top:10px; font-size:13.5px; color:var(--slate); }
+  .stat .src{ margin-top:8px; font-size:11.5px; color:var(--slate-dim); font-family:var(--font-mono); }
+  @media (max-width:760px){ .stats{ grid-template-columns:1fr; } }
+
+  @media (max-width:640px){
+    .gitlog .row{
+      grid-template-columns: 1fr;
+      gap:8px;
+    }
+    .gitlog .hash{ font-size:12px; }
+    .gitlog .tag{ order:3; }
+  }
+
+  /* ---------- program ---------- */
+  .program{
+    margin-top:40px;
+    display:grid; grid-template-columns:1fr 1fr; gap:18px;
+  }
+  @media (max-width:760px){ .program{ grid-template-columns:1fr; } }
+  .prog-card{
+    border:1px solid var(--line); border-radius:16px; padding:26px;
+    background:rgba(255,255,255,0.02);
+  }
+  .prog-card .icon{
+    width:38px; height:38px; border-radius:10px;
+    background:rgba(0,98,221,0.18); border:1px solid rgba(0,98,221,0.4);
+    display:flex; align-items:center; justify-content:center; margin-bottom:16px;
+    color:var(--cyan);
+  }
+  .prog-card h3{ font-family:var(--font-display); font-size:19px; font-weight:600; margin-bottom:8px; }
+  .prog-card p{ color:var(--slate); font-size:14.5px; }
+  .prog-card ul{ margin-top:14px; padding-left:18px; color:var(--slate); font-size:14px; }
+  .prog-card li{ margin-bottom:6px; }
+
+  /* ---------- CTA ---------- */
+  .cta{
+    border-top:1px solid var(--line);
+    padding: 96px 0 88px;
+    text-align:center;
+  }
+  .cta h2{ margin:0 auto 16px; }
+  .cta .lede{ margin:0 auto 34px; }
+  .btnrow{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--font-mono); font-size:14px; font-weight:500;
+    padding:14px 26px; border-radius:10px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:10px;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .btn.primary{ background:var(--blue); color:var(--white); box-shadow:0 0 0 1px rgba(0,98,221,0.4), 0 12px 30px -10px rgba(0,98,221,0.7); }
+  .btn.ghost{ border:1px solid var(--line); color:var(--paper); }
+  .btn:hover{ transform:translateY(-2px); }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:32px 0 48px;
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:12px;
+    font-family:var(--font-mono); font-size:12.5px; color:var(--slate-dim);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="field" aria-hidden="true"></div>
+
+<main>
+  <nav>
+    <div class="wrap">
+      <div class="brand"><span class="dot"></span> alejandro_londono@adso:~/ universidad chongqing</div>
+      <div class="navlinks">
+        <a href="#problema">Problema</a>
+        <a href="#pitch">Pitch</a>
+        <a href="#evidencia">Evidencia</a>
+        <a href="#programa">Programa</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap hero">
+    <span class="badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+      SENA · Movilidad CQUET-Chongqing · Oct 2026
+    </span>
+
+    <div class="terminal"><span class="prompt">$</span> <span id="typed"></span><span class="cursor"></span></div>
+
+    <h1>From <span class="grad">Developer</span> to <span class="grad">Founder</span>.</h1>
+
+    <p class="hero-sub">
+      Un plan de transferencia de conocimiento que lleva la mentalidad de construir productos,
+      no solo escribir código, desde el ecosistema de software de Chongqing hasta la ficha
+      <strong>3229207</strong> de Análisis y Desarrollo de Software en Medellín.
+    </p>
+
+    <div class="hero-meta">
+      <span><b>Aprendiz</b> Luis Alejandro Londoño Valle</span>
+      <span><b>Centro</b> CTMA · Regional Antioquia</span>
+      <span><b>Programa</b> ADSO</span>
+    </div>
+  </div>
+
+  <section id="problema">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">El problema</div>
+        <h2>La mayoría de proyectos de grado mueren el día de la sustentación.</h2>
+        <p class="lede">Se construyen para cumplir un requisito, no para resolver un problema real de alguien dispuesto a pagar, contratar o invertir. El resultado: buen código, cero mentalidad de producto.</p>
+      </div>
+
+      <div class="gitlog reveal">
+        <div class="row">
+          <span class="hash">BUG-01</span>
+          <span class="msg">Proyecto de grado entregado<small>sin usuario, sin validación, sin pitch</small></span>
+          <span class="tag">hace 3 semestres</span>
+        </div>
+        <div class="row">
+          <span class="hash">BUG-02</span>
+          <span class="msg">"Esperando que una empresa me contrate"<small>mentalidad por defecto del egresado ADSO</small></span>
+          <span class="tag">estado actual</span>
+        </div>
+        <div class="row">
+          <span class="hash">Objetivo</span>
+          <span class="msg">Observar cómo Chongqing convierte código en negocio<small>ciudades inteligentes, software como industria, no como tarea</small></span>
+          <span class="tag">11–24 oct 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pitch">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">La transferencia</div>
+        <h2>Un pitch, no una tarea: así se construye la propuesta.</h2>
+        <p class="lede">El taller "From Dev to Founder" enseña a mis compañeros de ADSO a versionar su idea de proyecto de grado como si fuera un producto en construcción, con el mismo rigor con el que versionan su código.</p>
+      </div>
+
+      <div class="deploy reveal">
+        <div class="card">
+          <span class="ver">Problema</span>
+          <h3>¿Quién sufre esto de verdad?</h3>
+          <p>Antes de escribir una línea de código, identificar a una persona o negocio concreto con un problema real — no una necesidad inventada para justificar el proyecto.</p>
+        </div>
+        <div class="card">
+          <span class="ver">Solución</span>
+          <h3>La mínima solución que funciona</h3>
+          <p>Convertir el alcance del proyecto de grado en un producto mínimo viable: lo justo para demostrar que el problema se resuelve, ni una función de más.</p>
+        </div>
+        <div class="card final">
+          <span class="ver">Propuesta de valor</span>
+          <h3>Por qué alguien pagaría, contrataría o invertiría</h3>
+          <p>El cierre del pitch: la frase que un aprendiz debería poder decirle a una empresa en 30 segundos para convencerla de que esta es la solución que necesita.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="evidencia">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">Por qué Chongqing y no cualquier ciudad</div>
+        <h2>El contexto que hace esto más que una anécdota de viaje.</h2>
+        <p class="lede">Voy a observar de cerca una ciudad que está apostando su economía al software, para descubrir cómo este modelo podría replicarse en nuestra institución y, ¿por qué no?, en nuestra ciudad.</p>
+      </div>
+
+      <div class="stats reveal">
+        <div class="stat">
+          <div class="num">2×</div>
+          <div class="lbl">Fuerza laboral en software de Chongqing desde 2021</div>
+          <div class="src">ichongqing.info, ene. 2026</div>
+        </div>
+        <div class="stat">
+          <div class="num">$500B+</div>
+          <div class="lbl">Yuanes proyectados en ingresos del sector software para 2025</div>
+          <div class="src">ichongqing.info, ene. 2026</div>
+        </div>
+        <div class="stat">
+          <div class="num">$10M</div>
+          <div class="lbl">Premio de la hackathon nacional del MinTIC con implementación real</div>
+          <div class="src">mintic.gov.co/hackathon</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="programa">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">Lo que se ejecuta al volver</div>
+        <h2>Dos productos medibles, no una idea suelta.</h2>
+        <p class="lede">Nada de esto se queda en Chongqing. Se transfiere en el centro de formación, con instructores como jurado y con indicadores concretos.</p>
+      </div>
+
+      <div class="program reveal">
+        <div class="prog-card">
+          <div class="icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H4z"/><path d="M8 20h8M12 16v4"/></svg>
+          </div>
+          <h3>Charla-taller "From Dev to Founder"</h3>
+          <p>Sesión práctica para reformular proyectos de grado como pitch comercial.</p>
+          <ul>
+            <li>Mínimo 25–30 aprendices de la ficha 3229207</li>
+            <li>Escalable a otras fichas ADSO del centro</li>
+            <li>Indicador: propuestas reformuladas + encuesta antes/después</li>
+          </ul>
+        </div>
+        <div class="prog-card">
+          <div class="icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 3-5 9 5 9M16 3l5 9-5 9"/></svg>
+          </div>
+          <h3>Reto interno de programación</h3>
+          <p>Mini-hackathon con retos reales definidos junto a instructores, formato validado en Colombia (OmegaHack, MinTIC).</p>
+          <ul>
+            <li>Equipos de aprendices, panel evaluador interno</li>
+            <li>Indicador: equipos participantes + acta de evaluación</li>
+            <li>Visión a mediano/largo plazo: articular con empresas del sector</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <div class="eyebrow" style="justify-content:center;">¿Hablamos?</div>
+      <h2>Este plan se sustenta en el documento oficial de transferencia.</h2>
+      <p class="lede">Aquí está el resumen visual. El plan completo, con la metodología, los indicadores y la propuesta detallada, va en el formato oficial del SENA.</p>
+      <div class="btnrow">
+        <a class="btn primary" href="mailto:londonovalleluisalejandro@gmail.com">Escríbeme →</a>
+        <a class="btn ghost" href="#problema">Volver arriba ↑</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:12px;">
+      <span>© 2026 Luis Alejandro Londoño Valle · ADSO · CTMA Regional Antioquia</span>
+      <span>Plan de transferencia de conocimiento · SENA × CQUET</span>
+    </div>
+  </footer>
+</main>
+
+<script>
+  // Typewriter line in hero terminal
+  (function(){
+    var el = document.getElementById('typed');
+    var text = "compile(codigo) → deploy(negocio)";
+    var i = 0;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced){ el.textContent = text; return; }
+    function tick(){
+      if(i <= text.length){
+        el.textContent = text.slice(0, i);
+        i++;
+        setTimeout(tick, 38);
+      }
+    }
+    tick();
+  })();
+
+  // Scroll reveal
+  (function(){
+    var items = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      items.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
